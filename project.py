@@ -35,7 +35,7 @@ def count_words(lines):
     return word_count
     
 
-doc_lines = read_file('test_doc.txt')
+doc_lines = read_file('example.txt')
 
 doc_words = count_words(doc_lines)
 
