@@ -1,6 +1,6 @@
 # Running project.py
 
-The program will read a .txt file and count the instances of each unique word. The file it is reading must be in the same directory as the script and must be named "example.txt" (must be a txt file). I will most likely change this to have the user input the name of their file in the future. 
+The program will read a .txt file and count the instances of each unique word. To run it, the file it is reading must be in the same directory as the script and must be named "example.txt" (must be a txt file). It can then be executed using any Python IDE or by using Python from the terminal. I will most likely change it to have the user input the name of their file in the future. 
 
 The code reads the file, removes any newline and tab characters (replaces them with spaces as a way of using them as separators), and then creates a dictionary where the keys are the unique words and the values are the counts of those words. It then displays this dictionary.
 
