@@ -1,7 +1,8 @@
 # Count # of instances of each unique word in document
 # Support space, tab, and newline as separators
+import unittest
 
-def read_file(filename):
+def count_words(filename):
     
     with open(filename, 'r+') as f:
         clean_lines = []
@@ -9,19 +10,12 @@ def read_file(filename):
         for line in lines:
             line = line.strip('\n')
             line = line.replace('\t', ' ')
-            clean_lines.append(line)
-            
-            
-        
-    return clean_lines
+            clean_lines.append(line)   
 
-def count_words(lines):
-    
-    #words = []
     
     word_count = {}
     
-    for line in lines:
+    for line in clean_lines:
         line_words = line.split(' ')
         
         for x in line_words:
@@ -33,11 +27,25 @@ def count_words(lines):
     word_count.pop('')
         
     return word_count
-    
 
-doc_lines = read_file('example.txt')
 
-doc_words = count_words(doc_lines)
+class TestCountWords(unittest.TestCase):
+    @classmethod
+    def setUpClass(self):
+        self.dict = count_words('example.txt')
+        
+    def test_word_present(self):      
+        self.assertIn("example", self.dict.keys(), "Word not in count")
+        
+        
+    def test_word_count(self):
+        self.assertEqual(self.dict.get("example"), 6, "Count is not correct")
+        self.assertEqual(self.dict.get("male"), 5, "Count is not correct")
+        
+        
 
-print(doc_lines)
-print("Doc words; ", doc_words)
+doc_words = count_words('example.txt')
+
+print("Word counts in document: ", doc_words)
+
+unittest.main()
