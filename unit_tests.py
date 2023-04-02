@@ -104,10 +104,9 @@ class TestCountWords(unittest.TestCase):
         
     def test_char_count(self):
         self.assertEqual(self.test_doc.CharCount, 2143, "Character count is not correct")
+        
+    def test_doc_empty(self):
+        self.assertGreater(len(self.test_doc.Lines), 0, "Document is empty")
       
-        
-        
-
-
 
 unittest.main()
