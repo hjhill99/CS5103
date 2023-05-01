@@ -1,8 +1,8 @@
-# First update for the project, adds the character and line counts of the document
+# Second update for the project, adds the ability to replace all instances of a word
 
 class Counts:
     
-    def __init__(self, filename):
+    def __init__(self, filename, old_word, new_word):
         
         # Initializes object to have empty word, line, and character counts to be filled by other functions
         
@@ -10,8 +10,9 @@ class Counts:
         self.WordCount = None
         self.LineCount = None
         self.CharCount = None
+        self.NewWords = None
         
-        self.get_counts(filename)
+        self.get_counts(filename, old_word, new_word)
         
     # Reads lines from selected document
     def read_doc(self, filename):
@@ -71,8 +72,39 @@ class Counts:
             
         self.CharCount = CharCount
     
+
+        
+    def replace_word(self, old_word, new_word):
+        
+        doc_words = []
+        new_doc_words = []
+        punc = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
+        
+        for line in self.Lines:
+            words = line.split(' ')
+            for word in words:
+
+                for x in word:
+                    if x in punc:
+                        word = word.replace(x, "")
+
+                if word == ' ' or word == '':
+                    pass
+                else:
+                    doc_words.append(word)
+           
+        for word in doc_words:
+            if word.lower() == old_word:
+                word = word.replace(word, new_word)
+                new_doc_words.append(word)
+            else:
+                new_doc_words.append(word)
+                
+        self.NewWords = new_doc_words
+                    
+                
     # Reads the document, cleans the lines, and gets the word, line, and character counts
-    def get_counts(self, filename):
+    def get_counts(self, filename, old_word, new_word):
         
         self.read_doc(filename)
         self.clean_lines()
@@ -80,17 +112,20 @@ class Counts:
         self.count_words()
         self.count_lines()
         self.count_chars()
+        self.replace_word(old_word, new_word)
+        
+        self.display_counts()
     
-    # Displayes the word, line, and character counts
+    # Displays the word, line, and character counts
     def display_counts(self):
         print("Word count: ", self.WordCount)
         print("-----------------")
         print("Line count: ", self.LineCount)
         print("-----------------")
         print("Character count: ", self.CharCount)
+        print("-----------------")
+        print("New words after replacement: ", self.NewWords)
 ##################################################################
-
-doc1 = Counts("example.txt")
-
-#doc1.get_counts("example.txt")
-doc1.display_counts()
+print("Enter name of file (i.e. filename.txt): ")
+file = input()
+doc1 = Counts(file, "jane", "banana")
